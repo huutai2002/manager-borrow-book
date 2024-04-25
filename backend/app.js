@@ -3,11 +3,18 @@ const cors = require("cors");
 const ApiError = require("./app/api-error");
 
 const app = express();
-const contactsRouter = require("./app/routes/contact.route");
+const usersRouter = require("./app/routes/user.route");
+const publishersRouter = require("./app/routes/publisher.route");
+const booksRouter = require("./app/routes/book.route");
+const followsRouter = require("./app/routes/follow.route");
 
 app.use(cors());
+require("dotenv").config();
 app.use(express.json());
-app.use("/api/contacts", contactsRouter);
+app.use("/api/users", usersRouter);
+app.use("/api/follows", followsRouter);
+app.use("/api/publishers", publishersRouter);
+app.use("/api/books", booksRouter);
 app.use((req, res, next) => {
   //code khi không có route được định nghĩa nào khớp yêu cầu,
   // gọi next() để chuyển sang middleware xử lý lỗi

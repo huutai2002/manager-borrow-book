@@ -1,47 +1,38 @@
-<script setup>
-import HelloWorld from './components/HelloWorld.vue'
-import TheWelcome from './components/TheWelcome.vue'
+<script>
+import AppHeader from "@/components/AppHeader.vue";
+export default {
+  components: {
+    AppHeader,
+  },
+  data() {
+    return {
+      showHeader: true, // Mặc định hiển thị header
+    };
+  },
+  watch: {
+    '$route'(to, from) {
+      // Kiểm tra nếu router view là trang Login thì ẩn header
+      if (to.name === 'Login' || to.name === 'Register') {
+        this.showHeader = false;
+      } else {
+        this.showHeader = true;
+      }
+    }
+  }
+};
 </script>
 
 <template>
-  <header>
-    <img alt="Vue logo" class="logo" src="./assets/logo.svg" width="125" height="125" />
-
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
+  <div id="app">
+    <AppHeader v-if="showHeader" />
+    <div class="container mt-3">
+      <router-view />
     </div>
-  </header>
-
-  <main>
-    <TheWelcome />
-  </main>
+  </div>
 </template>
 
 <style scoped>
-header {
-  line-height: 1.5;
-}
-
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
-}
-
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
-
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
+#app {
+  background-color: #F0EBE3;
 }
 </style>
